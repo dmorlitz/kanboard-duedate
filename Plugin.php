@@ -36,7 +36,7 @@ class Plugin extends Base
 
     public function getPluginHomepage()
     {
-        return '';
+        return 'https://github.com/dmorlitz/kanboard-duedate';
     }
 
     public function getCompatibleVersion()
