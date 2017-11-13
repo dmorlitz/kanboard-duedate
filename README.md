@@ -9,21 +9,28 @@ Enable sorting columns by due date for Kanboard.
 Screenshots
 -----------
 
-### Settings tab on left menu
+### New button at the top of the page
 
-You can discuss with people from a small window at the bottom left:
+This plugin adds a new "Sorted by...." button to the top of each page in the toolbar.  The button will
+show you whether the current sort is "due date" or "board order" (the original way).  Clicking on
+the button will take you to the settings panel, where you can change the sorting.
 
-![Normal view](https://cloud.githubusercontent.com/assets/323546/23592581/302b0d5e-01d1-11e7-96bd-ac1ff15ef0cd.png)
+**NOTE:**  This setting affects every board and is stored in your user preferences.
+
+![Toolbar button](https://user-images.githubusercontent.com/11982098/32742491-9b1c975a-c877-11e7-886f-107e73b1d06e.png)
 
 ### Settings panel
 
-If you would like to see more messages, you can enlarge the window:
+The settings panel will allow you to change the sorting order.  The current sorting method will be initially
+selected by default.  
 
-![Maximized view](https://cloud.githubusercontent.com/assets/323546/23592555/d6f51e3c-01d0-11e7-97f7-6bc8cd3c996d.png)
+If you came to this settings panel by clicking on the tool bar button the URL you came from will be shown in the
+"Redirect you back to" box.  When you click Save you will be returned to the URL that is shown.
 
-### Button on board
+If you arrived at the settings panel without clicking on the tool bar button "No redirection" will be shown and
+pressing Save will leave you on the settings page.
 
-You can minimize the chat window if needed:
+![Settings panel](https://user-images.githubusercontent.com/11982098/32742555-c8896fec-c877-11e7-8e2f-9a28eadb3cb0.png)
 
 Author
 ------
