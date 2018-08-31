@@ -7,8 +7,10 @@
 	if ($this->app->configModel->get('duedate_board_sort_method') == "duedate_due") {
 	   //echo "Sorted by due date";
 	   uasort($column['tasks'], function($a, $b) {
-	      $datea=0;
-	      $dateb=0;
+	      //$datea=0; //Forces undated tasks to the top
+	      //$dateb=0;
+              $datea=strtotime($this->app->configModel->get('duedate_board_default_date')); //Allows user to set a date for undated items
+              $dateb=$datea; //Just a default
 	      if ( !empty($a['date_due']) ) {
 	         $datea=$a['date_due'];
 	      }

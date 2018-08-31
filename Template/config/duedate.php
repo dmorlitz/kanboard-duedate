@@ -15,6 +15,12 @@
         ) ?>
     </fieldset>
 
+    <fieldset>
+        <legend><?= t('Due date assumed for tasks without due date') ?></legend>
+        <?= $this->form->text('duedate_board_default_date', $values, $errors, array('required', 'autofocus', 'tabindex="2"')) ?>
+        <br><b>NOTE:</b> Any date formated by strtotime is accepted here - a value of 0 will force undated items to the top
+    </fieldset>
+
     <?php
        $redirect = urldecode($this->app->request->getStringParam('redirect'));
        if (empty($redirect)) {
