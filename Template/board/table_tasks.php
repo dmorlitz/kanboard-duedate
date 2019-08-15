@@ -43,11 +43,18 @@
                 data-task-limit="<?= $column['task_limit'] ?>">
 
                 <?php $overdue = true; ?>
+                <?php $longterm = false; ?>
                 <?php foreach ($column['tasks'] as $task): ?>
                     <?php
                        if ( ($task[date_due] >= time()) && ($overdue == true) ) {
                           echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>FUTURE</b></font></center>';
                           $overdue = false;
+                       }
+                    ?>
+                    <?php
+                       if ( ($task[date_due] >= strtotime('+30 days')) && ($longterm == false) ) {
+                          echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>30 days +</b></font></center>';
+                          $longterm=true;
                        }
                     ?>
                     <?= $this->render($not_editable ? 'board/task_public' : 'board/task_private', array(
