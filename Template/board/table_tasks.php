@@ -46,17 +46,19 @@
                 <?php $longterm = false; ?>
                 <?php foreach ($column['tasks'] as $task): ?>
                     <?php
-                       if ( ($task[date_due] >= time()) && ($overdue == true) ) {
-                          echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>FUTURE</b></font></center>';
-                          $overdue = false;
+                       if ($this->app->configModel->get('duedate_board_dividers')=="duedate_dividers_on") {
+
+                          if ( ($task[date_due] >= time()) && ($overdue == true) ) {
+                             echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>FUTURE</b></font></center>';
+                             $overdue = false;
+                          }
+                          if ( ($task[date_due] >= strtotime('+30 days')) && ($longterm == false) ) {
+                             echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>30 days +</b></font></center>';
+                             $longterm=true;
+                          }
                        }
                     ?>
-                    <?php
-                       if ( ($task[date_due] >= strtotime('+30 days')) && ($longterm == false) ) {
-                          echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>30 days +</b></font></center>';
-                          $longterm=true;
-                       }
-                    ?>
+
                     <?= $this->render($not_editable ? 'board/task_public' : 'board/task_private', array(
                         'project' => $project,
                         'task' => $task,

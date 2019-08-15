@@ -16,6 +16,16 @@
     </fieldset>
 
     <fieldset>
+        <legend><?= t('Overdue/Future dividers') ?></legend>
+        <?= $this->form->radios('duedate_board_dividers', array(
+                'duedate_dividers_on' => t('On - show overdue/future dividers'),
+                'duedate_dividers_off' => t('Off'),
+            ),
+            $values
+        ) ?>
+    </fieldset>
+
+    <fieldset>
         <legend><?= t('Due date assumed for tasks without due date') ?></legend>
         <?= $this->form->text('duedate_board_default_date', $values, $errors, array('required', 'autofocus', 'tabindex="2"')) ?>
         <br>&nbsp<br><b>NOTE:</b> Any date format by PHP's strtotime function is accepted here
