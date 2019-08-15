@@ -42,7 +42,14 @@
                 data-swimlane-id="<?= $swimlane['id'] ?>"
                 data-task-limit="<?= $column['task_limit'] ?>">
 
+                <?php $overdue = true; ?>
                 <?php foreach ($column['tasks'] as $task): ?>
+                    <?php
+                       if ( ($task[date_due] >= time()) && ($overdue == true) ) {
+                          echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>FUTURE</b></font></center>';
+                          $overdue = false;
+                       }
+                    ?>
                     <?= $this->render($not_editable ? 'board/task_public' : 'board/task_private', array(
                         'project' => $project,
                         'task' => $task,
