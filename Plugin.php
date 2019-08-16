@@ -11,7 +11,8 @@ class Plugin extends Base
     {
         $this->template->hook->attach('template:project-header:view-switcher', 'DueDate:project_header/views');
         $this->template->setTemplateOverride('board/table_tasks', 'DueDate:board/table_tasks');
-        $this->template->hook->attach('template:config:sidebar', 'DueDate:config/sidebar');
+//        $this->template->hook->attach('template:project:dropdown', 'DueDate:board/dropdown');
+        $this->template->hook->attach('template:project:sidebar', 'DueDate:board/sidebar');
     }
 
     public function getPluginName()

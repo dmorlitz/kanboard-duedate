@@ -1,18 +1,19 @@
-<?php //var_dump($this->app->request);//$_SERVER['REQUEST_URI']);?>
 <?php
-//      $redirect = $this->app->request->getServerVariable("REQUEST_SCHEME") . "://" .
-//                  $this->app->request->getServerVariable("SERVER_NAME") .
-//                  $this->app->request->getUri();
-      //Try setting redirect to path only - to auto-detect protocol
-      $redirect = $this->app->request->getUri();
-      $sort = $this->app->configModel->get('duedate_board_sort_method');
+//      $sort = $this->app->configModel->get('duedate_board_sort_method');
+
+      $sort = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Sort_Method');
+
+      if ($sort == null) {
+         $sort = "duedate_board";
+      }
+
       if ( $sort == "duedate_due") {
          $sorttext = "due date";
       } else {
          $sorttext = "board order";
       }
+
 ?>
-<?php //echo $this->app->request->getIntegerParam("project_id");?>
-<li <?= $this->app->checkMenuSelection('DueDateController') ?>>
-    <?= $this->url->link(t('Sorted by ' . $sorttext . ' (click to change)'), 'ConfigController', 'show', array('plugin' => 'DueDate', 'redirect' => urlencode($redirect) ) ); ?>
+<li <?= $this->app->checkMenuSelection('DueDateConfigController', 'show', 'DueDate') ?>>
+    <?= $this->url->icon('sort', t('Sorted by ' . $sorttext), 'DueDateConfigController', 'show', array('plugin' => 'DueDate','project_id' => $project['id'])) ?></li>
 </li>
