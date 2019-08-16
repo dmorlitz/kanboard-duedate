@@ -1,9 +1,9 @@
 <!-- task row -->
 
 <?php
-   $duedate_board_sort_method = strval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Sort_Method'));
-   $duedate_board_dividers = strval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Dividers'));
-   $duedate_board_default_date = strval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Default_Date'));
+   $duedate_board_sort_method = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Sort_Method');
+   $duedate_board_dividers = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Dividers');
+   $duedate_board_default_date = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Default_Date');
 
    if (is_null($duedate_board_sort_method)) { $duedate_board_sort_method = "duedate_board"; }
    if (is_null($duedate_board_dividers)) { $duedate_board_dividers = "duedate_dividers_off"; }
@@ -65,12 +65,11 @@
                     <?php
                        //if ($this->app->configModel->get('duedate_board_dividers')=="duedate_dividers_on") {
                        if ( ($duedate_board_sort_method == "duedate_due") && ($duedate_board_dividers=="duedate_board_dividers_on") ) {
-
-                          if ( ($task[date_due] >= time()) && ($overdue == true) ) {
+                          if ( ($task['date_due'] >= time()) && ($overdue == true) ) {
                              echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>FUTURE</b></font></center>';
                              $overdue = false;
                           }
-                          if ( ($task[date_due] >= strtotime('+30 days')) && ($longterm == false) ) {
+                          if ( ($task['date_due'] >= strtotime('+30 days')) && ($longterm == false) ) {
                              echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>30 days +</b></font></center>';
                              $longterm=true;
                           }
