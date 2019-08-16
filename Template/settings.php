@@ -33,14 +33,17 @@
     </fieldset>
 
     <fieldset>
+        <legend><?= t('Number of days for "distant future" separator line (numbers only)') ?></legend>
+        <?= $this->form->text('DueDate_Board_Distant_Future', $values, $errors, array('required', 'autofocus', 'tabindex="2"')) ?>
+    </fieldset>
+
+    <fieldset>
         <legend><?= t('Due date assumed for tasks without due date') ?></legend>
         <?= $this->form->text('DueDate_Board_Default_Date', $values, $errors, array('required', 'autofocus', 'tabindex="2"')) ?>
         <br>&nbsp<br><b>NOTE:</b> Any date format by PHP's strtotime function is accepted here
         <br>&nbsp&nbsp&nbspA value of 0 will force undated items to the top
         <br>&nbsp&nbsp&nbspA value significantly in the future will force undated items to the bottom (i.e. +90 years)
         <br>&nbsp&nbsp&nbspAny other date (i.e. 12/31/2019) or relative date (+75 days) will force undated items to that spot in the list
-<br>
-
     </fieldset>
 
     <div class="form-actions">
