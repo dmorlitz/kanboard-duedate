@@ -1,13 +1,13 @@
 <!-- task row -->
 
 <?php
-   $duedate_board_sort_method = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Sort_Method');
-   $duedate_board_dividers = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Dividers');
-   $duedate_board_default_date = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Default_Date');
+   $duedate_board_sort_method = strval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Sort_Method'));
+   $duedate_board_dividers = strval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Dividers'));
+   $duedate_board_default_date = strval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Default_Date'));
 
-   if (!isset($duedate_board_sort_method)) { $duedate_board_sort_method = "duedate_board"; }
-   if (!isset($duedate_board_dividers)) { $duedate_board_dividers = "duedate_dividers_off"; }
-   if (!isset($duedate_board_default_date)) { $duedate_board_default_date = "+75 days"; }
+   if (is_null($duedate_board_sort_method)) { $duedate_board_sort_method = "duedate_board"; }
+   if (is_null($duedate_board_dividers)) { $duedate_board_dividers = "duedate_dividers_off"; }
+   if (is_null($duedate_board_default_date)) { $duedate_board_default_date = "+75 days"; }
 ?>
 
 <tr class="board-swimlane board-swimlane-tasks-<?= $swimlane['id'] ?>">
@@ -16,13 +16,18 @@
 	/* DMM: BEGIN This sorts the tasks in a column by due date (1.1.1) update */
 	//echo "<pre>";var_dump($column['tasks']);echo "</pre>";
 //	if ($this->app->configModel->get('duedate_board_sort_method') == "duedate_due") {
+        $duedate_board_default_date = strval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Default_Date'));
+        if (is_null($duedate_board_default_date)) { $duedate_board_default_date = "+75 days"; }
+
 	if ($duedate_board_sort_method == "duedate_due") {
 	   //echo "Sorted by due date";
 	   uasort($column['tasks'], function($a, $b) {
 	      //$datea=0; //Forces undated tasks to the top
 	      //$dateb=0;
-              $datea=strtotime($this->app->configModel->get('duedate_board_default_date')); //Allows user to set a date for undated items
+              //$datea=strtotime($this->app->configModel->get('duedate_board_default_date')); //Allows user to set a date for undated items
+              $datea=strtotime($this->task->projectMetadataModel->get($_REQUEST['project_id'], 'DueDate_Board_Default_Date')); //Allows user to set a date for undated items
               $dateb=$datea; //Just a default
+
 	      if ( !empty($a['date_due']) ) {
 	         $datea=$a['date_due'];
 	      }
@@ -59,7 +64,7 @@
                 <?php foreach ($column['tasks'] as $task): ?>
                     <?php
                        //if ($this->app->configModel->get('duedate_board_dividers')=="duedate_dividers_on") {
-                       if ($duedate_board_dividers=="duedate_board_dividers_on") {
+                       if ( ($duedate_board_sort_method == "duedate_due") && ($duedate_board_dividers=="duedate_board_dividers_on") ) {
 
                           if ( ($task[date_due] >= time()) && ($overdue == true) ) {
                              echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>FUTURE</b></font></center>';

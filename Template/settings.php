@@ -14,8 +14,8 @@
     <fieldset>
         <legend><?= t('Sort method') ?></legend>
         <?= $this->form->radios('DueDate_Board_Sort_Method', array(
-                'duedate_board' => t('Show tasks in board order'),
                 'duedate_due' => t('Show tasks in due date order'),
+                'duedate_board' => t('Show tasks in board order'),
             ),
             $values
         ) ?>
@@ -24,8 +24,8 @@
     <fieldset>
         <legend><?= t('Overdue/Future dividers') ?></legend>
         <?= $this->form->radios('DueDate_Board_Dividers', array(
-                'duedate_dividers_on' => t('On - show overdue/future dividers'),
-                'duedate_dividers_off' => t('Off'),
+                'duedate_board_dividers_on' => t('On - show overdue/future dividers'),
+                'duedate_board_dividers_off' => t('Off'),
             ),
             $values
         ) ?>
