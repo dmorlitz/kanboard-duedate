@@ -23,7 +23,7 @@ class DueDateConfigController extends BaseController
                 ),
             'errors' => $errors,
             'columns_list' => $columnList,
-            'destination' => $destinationColumn,
+//            'destination' => $destinationColumn,
             'project' => $project,
             'title' => t('Edit project')
         )));
