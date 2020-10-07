@@ -5,6 +5,7 @@
    $duedate_board_dividers = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Dividers');
    $duedate_board_default_date = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Default_Date');
    $duedate_board_distant_future = abs(intval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Distant_Future')));
+   $project_id = $project['id'];
 
    if (is_null($duedate_board_sort_method)) { $duedate_board_sort_method = "duedate_board"; }
    if (is_null($duedate_board_dividers)) { $duedate_board_dividers = "duedate_dividers_off"; }
@@ -27,7 +28,8 @@
 	      //$datea=0; //Forces undated tasks to the top
 	      //$dateb=0;
               //$datea=strtotime($this->app->configModel->get('duedate_board_default_date')); //Allows user to set a date for undated items
-              $datea=strtotime($this->task->projectMetadataModel->get($_REQUEST['project_id'], 'DueDate_Board_Default_Date')); //Allows user to set a date for undated items
+
+              $datea=strtotime($this->task->projectMetadataModel->get($a['project_id'], 'DueDate_Board_Default_Date')); //Allows user to set a date for undated items
               $dateb=$datea; //Just a default
 
 	      if ( !empty($a['date_due']) ) {
