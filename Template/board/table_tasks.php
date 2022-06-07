@@ -22,24 +22,22 @@
         $duedate_board_default_date = strval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Default_Date'));
         if (is_null($duedate_board_default_date)) { $duedate_board_default_date = "+75 days"; }
 
-	if ( ($duedate_board_sort_method == "duedate_due") || ($duedate_board_sort_method == "duedate_modified") ){
-	   //echo "Sorted by due date";
+	/* DMM: BEGIN This sorts the tasks in a column by due date */
+   $duedate_board_sort_method = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Sort_Method');
+echo $duedate_board_sort_method;
+	if ( $duedate_board_sort_method == "duedate_due" ) {
+	   echo "Sorted by due date";
 	   uasort($column['tasks'], function($a, $b) {
-	      //$datea=0; //Forces undated tasks to the top
-	      //$dateb=0;
-              //$datea=strtotime($this->app->configModel->get('duedate_board_default_date')); //Allows user to set a date for undated items
-
               $datea=strtotime($this->task->projectMetadataModel->get($a['project_id'], 'DueDate_Board_Default_Date')); //Allows user to set a date for undated items
               $dateb=$datea; //Just a default
 
-              $date_field = ($duedate_board_sort_method == "duedate_due" ? 'date_due' : 'date_modification');
+	      if ( !empty($a['date_due']) ) {
+	         $datea=$a['date_due'];
+	      }
+	      if ( !empty($b['date_due']) ) {
+	         $dateb=$b['date_due'];
+	      }
 
-	      if ( !empty($a[$date_field]) ) {
-	         $datea=$a[$date_field];
-	      }
-	      if ( !empty($b[$date_field]) ) {
-	         $dateb=$b[$date_field];
-	      }
 	      if ($datea<=$dateb) {
 	         $ret=-1;
 	      } else {
@@ -50,6 +48,31 @@
 	   );
 	}
 	/* DMM: END This sorts the tasks in a column by due date */
+
+	/* DMM: BEGIN This sorts the tasks in a column by MODIFICATION date */
+	if ( $duedate_board_sort_method == "duedate_modified" ) {
+	   echo "Sorted by modification date";
+	   uasort($column['tasks'], function($a, $b) {
+              $datea=0;
+              $dateb=$datea; //Just a default
+
+	      if ( !empty($a['date_modification']) ) {
+	         $datea=$a['date_modification'];
+	      }
+	      if ( !empty($b['date_modification']) ) {
+	         $dateb=$b['date_modification'];
+	      }
+
+	      if ($datea<=$dateb) {
+	         $ret=-1;
+	      } else {
+	         $ret=1;
+	      }
+	      return $ret;
+	      }
+	   );
+	}
+	/* DMM: END This sorts the tasks in a column by MODIFICATION date */
 	?>
 
         <td class="
