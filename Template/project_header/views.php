@@ -12,10 +12,10 @@
          $dividers = "duedate_board_dividers_off";
       }
 
-      if ( $sort == "duedate_due") {
-         $sorttext = "due date";
-      } else {
-         $sorttext = "board order";
+      switch ($sort) {
+          case "duedate_due": $sorttext = "due date"; break;
+          case "duedate_modified": $sorttext = "modification date"; break;
+          default: $sorttext = "board order";
       }
 
       if ( $dividers == "duedate_board_dividers_on") {

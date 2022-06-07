@@ -15,6 +15,7 @@
         <legend><?= t('Sort method') ?></legend>
         <?= $this->form->radios('DueDate_Board_Sort_Method', array(
                 'duedate_due' => t('Show tasks in due date order'),
+                'duedate_modified' => t('Show tasks in modification order - unmodified longest at the top'),
                 'duedate_board' => t('Show tasks in board order'),
             ),
             $values
@@ -22,7 +23,7 @@
     </fieldset>
 
     <fieldset>
-        <legend><?= t('Overdue/Future dividers') ?></legend>
+        <legend><?= t('Overdue/Future dividers - ONLY used when sorted by Due Date') ?></legend>
         <?= $this->form->radios('DueDate_Board_Dividers', array(
                 'duedate_board_dividers_on' => t('On - show overdue/future dividers'),
                 'duedate_board_dividers_off' => t('Off'),
@@ -33,12 +34,12 @@
     </fieldset>
 
     <fieldset>
-        <legend><?= t('Number of days for "distant future" separator line (numbers only)') ?></legend>
+        <legend><?= t('Number of days for "distant" separator line (numbers only)') ?></legend>
         <?= $this->form->text('DueDate_Board_Distant_Future', $values, $errors, array('required', 'autofocus', 'tabindex="2"')) ?>
     </fieldset>
 
     <fieldset>
-        <legend><?= t('Due date assumed for tasks without due date') ?></legend>
+        <legend><?= t('Date assumed for tasks without due date') ?></legend>
         <?= $this->form->text('DueDate_Board_Default_Date', $values, $errors, array('required', 'autofocus', 'tabindex="2"')) ?>
         <br>&nbsp<br><b>NOTE:</b> Any date format by PHP's strtotime function is accepted here
         <br>&nbsp&nbsp&nbspA value of 0 will force undated items to the top

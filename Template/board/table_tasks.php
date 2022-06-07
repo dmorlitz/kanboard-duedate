@@ -22,7 +22,7 @@
         $duedate_board_default_date = strval($this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Default_Date'));
         if (is_null($duedate_board_default_date)) { $duedate_board_default_date = "+75 days"; }
 
-	if ($duedate_board_sort_method == "duedate_due") {
+	if ( ($duedate_board_sort_method == "duedate_due") || ($duedate_board_sort_method == "duedate_modified") ){
 	   //echo "Sorted by due date";
 	   uasort($column['tasks'], function($a, $b) {
 	      //$datea=0; //Forces undated tasks to the top
@@ -32,11 +32,13 @@
               $datea=strtotime($this->task->projectMetadataModel->get($a['project_id'], 'DueDate_Board_Default_Date')); //Allows user to set a date for undated items
               $dateb=$datea; //Just a default
 
-	      if ( !empty($a['date_due']) ) {
-	         $datea=$a['date_due'];
+              $date_field = ($duedate_board_sort_method == "duedate_due" ? 'date_due' : 'date_modification');
+
+	      if ( !empty($a[$date_field]) ) {
+	         $datea=$a[$date_field];
 	      }
-	      if ( !empty($b['date_due']) ) {
-	         $dateb=$b['date_due'];
+	      if ( !empty($b[$date_field]) ) {
+	         $dateb=$b[$date_field];
 	      }
 	      if ($datea<=$dateb) {
 	         $ret=-1;
@@ -68,12 +70,15 @@
                 <?php foreach ($column['tasks'] as $task): ?>
                     <?php
                        //if ($this->app->configModel->get('duedate_board_dividers')=="duedate_dividers_on") {
-                       if ( ($duedate_board_sort_method == "duedate_due") && ($duedate_board_dividers=="duedate_board_dividers_on") ) {
-                          if ( ($task['date_due'] >= time()) && ($overdue == true) ) {
+
+                       $date_field = ($duedate_board_sort_method == "duedate_due" ? 'date_due' : 'date_modification');
+
+                       if ( ( $duedate_board_sort_method == "duedate_due") && ($duedate_board_dividers=="duedate_board_dividers_on") ) {
+                          if ( ($task[$date_field] >= time()) && ($overdue == true) ) {
                              echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>FUTURE</b></font></center>';
                              $overdue = false;
                           }
-                          if ( ($task['date_due'] >= strtotime('+' . strval($duedate_board_distant_future) . 'days')) && ($longterm == false) ) {
+                          if ( ($task[$date_field] >= strtotime('+' . strval($duedate_board_distant_future) . 'days')) && ($longterm == false) ) {
                              echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>' . $duedate_board_distant_future . ' days +</b></font></center>';
                              $longterm=true;
                           }
