@@ -30,7 +30,7 @@
             ),
             $values
         ) ?>
-        <br><b>NOTE:</b> This setting only takes effect when sorting is done by due date order
+        <br><?= t('NOTE: This setting only takes effect when sorting is done by due date order') ?>
     </fieldset>
 
     <fieldset>
@@ -41,10 +41,14 @@
     <fieldset>
         <legend><?= t('Date assumed for tasks without due date') ?></legend>
         <?= $this->form->text('DueDate_Board_Default_Date', $values, $errors, array('required', 'autofocus', 'tabindex="2"')) ?>
-        <br>&nbsp<br><b>NOTE:</b> Any date format by PHP's strtotime function is accepted here
-        <br>&nbsp&nbsp&nbspA value of 0 will force undated items to the top
-        <br>&nbsp&nbsp&nbspA value significantly in the future will force undated items to the bottom (i.e. +90 years)
-        <br>&nbsp&nbsp&nbspAny other date (i.e. 12/31/2019) or relative date (+75 days) will force undated items to that spot in the list
+        <br/><?= 
+            t('NOTE: Any date format by PHP\'s strtotime function is accepted here'),
+            nl2br ("\n"),
+            t('A value of 0 will force undated items to the top'),
+            nl2br ("\n"),
+            t('A value significantly in the future will force undated items to the bottom (i.e. +90 years)'),
+            nl2br ("\n"),
+            t('Any other date (i.e. 12/31/2019) or relative date (+75 days) will force undated items to that spot in the list') ?>
     </fieldset>
 
     <div class="form-actions">

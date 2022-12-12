@@ -7,12 +7,18 @@ use Kanboard\Core\Translator;
 
 class Plugin extends Base
 {
+
     public function initialize()
     {
         $this->template->hook->attach('template:project-header:view-switcher', 'DueDate:project_header/views');
         $this->template->setTemplateOverride('board/table_tasks', 'DueDate:board/table_tasks');
 //        $this->template->hook->attach('template:project:dropdown', 'DueDate:board/dropdown');
         $this->template->hook->attach('template:project:sidebar', 'DueDate:board/sidebar');
+    }
+
+    public function onStartup()
+    {
+        Translator::load($this->languageModel->getCurrentLanguage(), __DIR__ . '/Locale');
     }
 
     public function getPluginName()
