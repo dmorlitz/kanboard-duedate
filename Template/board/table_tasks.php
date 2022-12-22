@@ -24,9 +24,9 @@
 
 	/* DMM: BEGIN This sorts the tasks in a column by due date */
    $duedate_board_sort_method = $this->task->projectMetadataModel->get($project['id'], 'DueDate_Board_Sort_Method');
-echo $duedate_board_sort_method;
+// echo $duedate_board_sort_method;
 	if ( $duedate_board_sort_method == "duedate_due" ) {
-	   echo "Sorted by due date";
+	   // echo "Sorted by due date";
 	   uasort($column['tasks'], function($a, $b) {
               $datea=strtotime($this->task->projectMetadataModel->get($a['project_id'], 'DueDate_Board_Default_Date')); //Allows user to set a date for undated items
               $dateb=$datea; //Just a default
@@ -51,7 +51,7 @@ echo $duedate_board_sort_method;
 
 	/* DMM: BEGIN This sorts the tasks in a column by MODIFICATION date */
 	if ( $duedate_board_sort_method == "duedate_modified" ) {
-	   echo "Sorted by modification date";
+	   // echo "Sorted by modification date";
 	   uasort($column['tasks'], function($a, $b) {
               $datea=0;
               $dateb=$datea; //Just a default
@@ -98,11 +98,11 @@ echo $duedate_board_sort_method;
 
                        if ( ( $duedate_board_sort_method == "duedate_due") && ($duedate_board_dividers=="duedate_board_dividers_on") ) {
                           if ( ($task[$date_field] >= time()) && ($overdue == true) ) {
-                             echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>FUTURE</b></font></center>';
+                             echo '<hr style="border-top: 3px dashed red;border-radius: 5px;"><center><font color="red"><b>' . t("Future") . '</b></font></center>';
                              $overdue = false;
                           }
                           if ( ($task[$date_field] >= strtotime('+' . strval($duedate_board_distant_future) . 'days')) && ($longterm == false) ) {
-                             echo '<hr style="border-top: 10px dashed red;border-radius: 5px;"><center><font color="red"><b>' . $duedate_board_distant_future . ' days +</b></font></center>';
+                             echo '<hr style="border-top: 3px dashed red;border-radius: 5px;"><center><font color="red"><b>' . $duedate_board_distant_future . ' ' . t('days') . ' +</b></font></center>';
                              $longterm=true;
                           }
                        }
