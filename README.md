@@ -1,3 +1,5 @@
+THIS PLUGIN HAS BEEN TRANSFERRED TO https://github.com/JustFxDev/kanboard-duedate - ALL NEW DEVELOPMENT WILL BE DONE THERE
+
 Due Date sorting for Kanboard
 =============================
 
