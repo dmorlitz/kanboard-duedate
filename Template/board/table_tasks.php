@@ -98,7 +98,8 @@
 
                        if ( ( $duedate_board_sort_method == "duedate_due") && ($duedate_board_dividers=="duedate_board_dividers_on") ) {
                           if ( ($task[$date_field] >= time()) && ($overdue == true) ) {
-                             echo '<hr style="border-top: 3px dashed red;border-radius: 5px;"><center><font color="red"><b>' . t("Future") . '</b></font></center>';
+                             // echo '<hr style="border-top: 3px dashed red;border-radius: 5px;"><center><font color="red"><b>' . t("Future") . '</b></font></center>';
+                             echo '<hr style="border-top: 3px dashed red;border-radius: 5px;"><center><font color="red"><b>' . t("1 to ") . $duedate_board_distant_future - 1 . t(" days") . '</b></font></center>';
                              $overdue = false;
                           }
                           if ( ($task[$date_field] >= strtotime('+' . strval($duedate_board_distant_future) . 'days')) && ($longterm == false) ) {
